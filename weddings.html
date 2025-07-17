@@ -41,7 +41,7 @@
         .text-highlight { color: #B0926A; } /* Champagne Gold */
         .hero-section {
             position: relative;
-            height: 100vh;
+            min-height: 100vh;
             overflow: hidden;
             background-color: #EAE6E1; /* Fallback color */
         }
@@ -139,7 +139,7 @@
     </header>
 
     <main>
-        <section id="hero" class="hero-section flex items-end pb-20 md:pb-32">
+        <section id="hero" class="hero-section flex items-center md:items-end pb-20 md:pb-32">
             <div class="hero-overlay"></div>
             <video autoplay loop muted playsinline src="https://paxon75.github.io/wedding/wesele.mp4"></video>
             <div class="container mx-auto px-6 text-center hero-content">
@@ -489,7 +489,11 @@
                 modalContent.classList.add('scale-95');
                 setTimeout(() => {
                     privacyModal.classList.add('hidden');
-                    document.body.classList.remove('modal-open');
+                    if (!document.getElementById('cookie-modal').classList.contains('hidden')) {
+                         // Do not remove modal-open if cookie banner is still there
+                    } else {
+                        document.body.classList.remove('modal-open');
+                    }
                 }, 300);
             };
 
@@ -539,3 +543,16 @@
     </script>
 </body>
 </html>
+```
+ in the most up-to-date Canvas "Finalny Landing Page MTM (z nowym banerem cookies)" document above and am asking a query about/based on this code below.
+Instructions to follow:
+  * Don't output/edit the document if the query is Direct/Simple. For example, if the query asks for a simple explanation, output a direct answer.
+  * Make sure to **edit** the document if the query shows the intent of editing the document, in which case output the entire edited document, **not just that section or the edits**.
+    * Don't output the same document/empty document and say that you have edited it.
+    * Don't change unrelated code in the document.
+  * Don't output  and  in your final response.
+  * Any references like "this" or "selected code" refers to the code between  and  tags.
+  * Just acknowledge my request in the introduction.
+  * Make sure to refer to the document as "Canvas" in your response.
+
+w sekcji hero brakuje mi jednego elementu, chciałbym aby pod przyciskiem ODKRYJ NASZE ATUTY pojawiła się ikona strzałki w dół z animacją która będzie zachęcała do przewijania str
