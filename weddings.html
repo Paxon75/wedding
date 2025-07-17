@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Playfair+Display:wght@600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Chosen Palette: Wedding Chic (Ivory, Taupe, Sage, Champagne Gold) -->
     <!-- Application Structure Plan: The structure remains a conversion-focused funnel but is redesigned with a lighter, more elegant aesthetic suitable for the wedding industry. The goal is to evoke a sense of luxury, trust, and attention to detail through a softer color palette, refined typography, and more white space. -->
     <!-- Visualization & Content Choices: Report Info: Landing page content -> Goal: Persuade/Convert -> Viz/Presentation: The design uses a warm, off-white background, elegant serif fonts (Cormorant Garamond), and a soft color scheme. Emoji icons are replaced with subtle Unicode symbols (❖). Interactions: Smooth scrolling and fade-in animations are retained for a premium feel. Justification: This aesthetic overhaul directly addresses the user's request to make the design more suitable for the wedding industry, moving from a corporate to a boutique, high-end feel. Library/Method: Vanilla JS, Tailwind CSS. NO SVG/Mermaid used. -->
@@ -20,6 +21,9 @@
             background-color: #FDFBF8;
             color: #4A4A4A;
             font-family: 'Cormorant Garamond', serif;
+        }
+        body.modal-open {
+            overflow: hidden;
         }
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Playfair Display', serif;
@@ -77,26 +81,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-        }
-        .gallery-overlay {
-            position: absolute;
-            inset: 0;
-            background-color: rgba(253, 251, 248, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1rem;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-        }
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
         .form-sending .spinner {
             display: inline-block;
             border: 2px solid rgba(255,255,255,0.3);
@@ -143,12 +127,9 @@
 
     <header id="main-header" class="bg-base/80 backdrop-blur-lg shadow-sm fixed top-0 left-0 right-0 z-40 transition-transform duration-300 -translate-y-full">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div>
-                <div class="text-2xl text-heading" style="font-family: 'Playfair Display', serif;">
-                    MTM
-                </div>
-                <p class="text-xs font-ui text-heading/70 tracking-wider">Tworzymy magiczny klimat</p>
-            </div>
+            <a href="#">
+                <img src="https://paxon75.github.io/wedding/logo_mtm.svg" alt="Logo MTM" class="h-12">
+            </a>
             <nav>
                 <a href="#contact" class="font-ui bg-cta text-cta font-semibold py-2 px-6 rounded-full transition-all duration-300 hover:bg-opacity-90 hover:shadow-md">
                     Kontakt
@@ -200,13 +181,13 @@
                         </p>
                     </div>
                     <div class="order-1 md:order-2">
-                        <img src="https://placehold.co/600x450/EAE6E1/6D5D4D?text=Zaufanie+i+Do%C5%9Bwiadczenie" alt="Elegancki detal weselny" class="rounded-lg shadow-xl w-full h-auto">
+                        <img src="https://paxon75.github.io/wedding/klimatyzatory_sala2.jpg" alt="Elegancki detal weselny" class="rounded-lg shadow-xl w-full h-auto">
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center mb-24 section-fade-in">
                     <div>
-                        <img src="https://placehold.co/600x450/6D5D4D/EAE6E1?text=Technologia+i+Estetyka" alt="Nowoczesne urządzenie w estetycznym otoczeniu" class="rounded-lg shadow-xl w-full h-auto">
+                        <img src="https://paxon75.github.io/wedding/klimatyzatory_sala1.jpg" alt="Nowoczesne urządzenie w estetycznym otoczeniu" class="rounded-lg shadow-xl w-full h-auto">
                     </div>
                     <div>
                         <h3 class="text-3xl md:text-4xl text-heading mb-4">Technologia i Estetyka</h3>
@@ -226,7 +207,7 @@
                         </p>
                     </div>
                     <div class="order-1 md:order-2">
-                        <img src="https://placehold.co/600x450/A3B899/FDFBF8?text=Pe%C5%82ne+Wsparcie" alt="Osoba planująca event" class="rounded-lg shadow-xl w-full h-auto">
+                        <img src="https://paxon75.github.io/wedding/ogrzewanie1.jpg" alt="Dyskretne ogrzewanie na evencie" class="rounded-lg shadow-xl w-full h-auto">
                     </div>
                 </div>
             </div>
@@ -255,30 +236,24 @@
             </div>
         </section>
 
-        <section id="gallery" class="py-20 md:py-32">
+        <section id="guarantees" class="py-20 md:py-32">
             <div class="container mx-auto px-6 text-center section-fade-in">
-                <h2 class="text-4xl md:text-5xl text-heading mb-16">Nasza dbałość o detal</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="gallery-item rounded-lg">
-                        <img src="https://placehold.co/600x800/EAE6E1/4A4A4A?text=Letnie+Popo%C5%82udnie" alt="Realizacja w namiocie weselnym" class="w-full h-full object-cover">
-                        <div class="gallery-overlay">
-                            <h4 class="text-2xl text-heading">Wesele w namiocie, 32°C</h4>
-                            <p class="text-lg text-body">Dyskretna klimatyzacja zapewniła komfort gościom.</p>
-                        </div>
+                <h2 class="text-4xl md:text-5xl text-heading mb-16">Gwarancja Perfekcyjnego Klimatu</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-accent p-8 md:p-10 rounded-lg shadow-lg">
+                        <i class="fas fa-shield-halved text-5xl text-highlight mb-6"></i>
+                        <h4 class="text-2xl text-heading mb-4">Niezawodność w każdej sytuacji</h4>
+                        <p class="text-lg leading-relaxed text-body">Rozumiemy, że w dniu ślubu nie ma miejsca na improwizację. Nasz sprzęt i zespół to gwarancja niezawodności i Twojego spokoju.</p>
                     </div>
-                    <div class="gallery-item rounded-lg">
-                         <img src="https://placehold.co/600x800/6D5D4D/FDFBF8?text=Ciep%C5%82o+Wspomnie%C5%84" alt="Realizacja w stodole" class="w-full h-full object-cover">
-                         <div class="gallery-overlay">
-                            <h4 class="text-2xl text-heading">Przyjęcie w stodole, -2°C</h4>
-                            <p class="text-lg text-body">Niezawodne ogrzewanie utrzymało ciepłą atmosferę.</p>
-                        </div>
+                    <div class="bg-base p-8 md:p-10 rounded-lg shadow-lg border border-accent">
+                        <i class="fas fa-leaf text-5xl text-highlight mb-6"></i>
+                        <h4 class="text-2xl text-heading mb-4">Dyskrecja i Estetyka</h4>
+                        <p class="text-lg leading-relaxed text-body">Nasze nowoczesne urządzenia są projektowane z myślą o estetyce. Działamy dyskretnie, integrując się z dekoracją i nie zakłócając magii chwili.</p>
                     </div>
-                     <div class="gallery-item rounded-lg">
-                         <img src="https://placehold.co/600x800/A3B899/FFFFFF?text=Magia+Oran%C5%BCerii" alt="Realizacja w oranżerii" class="w-full h-full object-cover">
-                         <div class="gallery-overlay">
-                            <h4 class="text-2xl text-heading">Event w oranżerii</h4>
-                            <p class="text-lg text-body">Pełna kontrola temperatury w szklanym pawilonie.</p>
-                        </div>
+                    <div class="bg-accent p-8 md:p-10 rounded-lg shadow-lg">
+                        <i class="fas fa-headset text-5xl text-highlight mb-6"></i>
+                        <h4 class="text-2xl text-heading mb-4">Pełne Wsparcie 24/7</h4>
+                        <p class="text-lg leading-relaxed text-body">Jesteśmy do Twojej dyspozycji na każdym etapie – od doradztwa, po montaż i dyskretną obsługę techniczną w trakcie trwania całej uroczystości.</p>
                     </div>
                 </div>
             </div>
@@ -329,9 +304,10 @@
 
     <footer class="bg-heading text-gray-300 py-10">
         <div class="container mx-auto px-6 text-center">
-            <p class="text-2xl text-highlight mb-3" style="font-family: 'Playfair Display', serif;">MTM</p>
+            <a href="#"><img src="https://paxon75.github.io/wedding/logo_mtm.svg" alt="Logo MTM" class="h-14 mx-auto mb-4"></a>
             <p class="text-sm font-ui text-gray-300">ul. Księcia Józefa Poniatowskiego 11, 05-230 Kobyłka | <a href="mailto:biuro@firmamtm.pl" class="hover:text-highlight transition-colors">biuro@firmamtm.pl</a></p>
             <p class="text-sm font-ui text-gray-300">tel: <a href="tel:+48223531111" class="hover:text-highlight transition-colors">+48 22 353 11 11</a> | <a href="tel:+48223532222" class="hover:text-highlight transition-colors">+48 22 353 22 22</a></p>
+            <p class="text-lg font-ui mt-4"><a href="https://firmamtm.pl" target="_blank" rel="noopener noreferrer" class="text-highlight hover:underline transition-colors">www.firmamtm.pl</a></p>
             <p class="text-xs font-ui mt-6 text-gray-400">&copy; 2025 MTM | <a href="#privacy-policy" class="privacy-link hover:text-highlight transition-colors">Polityka Prywatności</a></p>
         </div>
     </footer>
@@ -396,6 +372,15 @@
                     <p>3. W sprawach nieuregulowanych niniejszą Polityką prywatności stosuje się odpowiednio przepisy RODO oraz inne właściwe przepisy prawa polskiego.</p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Cookie Modal -->
+    <div id="cookie-modal" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-base p-8 rounded-lg shadow-2xl max-w-lg w-full text-center transform transition-transform duration-300 scale-95">
+            <h3 class="text-2xl text-heading mb-4">Ta strona używa plików cookies</h3>
+            <p class="text-body mb-6">Używamy plików cookie, aby zapewnić najlepszą jakość korzystania z naszej witryny. Klikając „Zgadzam się”, wyrażasz zgodę na używanie przez nas wszystkich plików cookie. Możesz dowiedzieć się więcej w naszej <a href="#privacy-policy" class="privacy-link underline hover:text-highlight">Polityce Prywatności</a>.</p>
+            <button id="accept-cookies" class="font-ui bg-cta text-cta font-semibold py-3 px-8 rounded-full transition-all duration-300 hover:bg-opacity-90">Zgadzam się</button>
         </div>
     </div>
 
@@ -492,10 +477,10 @@
 
             const openModal = () => {
                 privacyModal.classList.remove('hidden');
+                document.body.classList.add('modal-open');
                 setTimeout(() => {
                     privacyModal.classList.remove('opacity-0');
                     modalContent.classList.remove('scale-95');
-                    document.body.style.overflow = 'hidden';
                 }, 10);
             };
 
@@ -504,7 +489,7 @@
                 modalContent.classList.add('scale-95');
                 setTimeout(() => {
                     privacyModal.classList.add('hidden');
-                    document.body.style.overflow = '';
+                    document.body.classList.remove('modal-open');
                 }, 300);
             };
 
@@ -521,6 +506,34 @@
                 if (e.target === privacyModal) {
                     closeModal();
                 }
+            });
+
+            // Cookie Modal Logic
+            const cookieModal = document.getElementById('cookie-modal');
+            const acceptCookiesBtn = document.getElementById('accept-cookies');
+            const cookieModalContent = cookieModal.querySelector('div');
+
+            if (!localStorage.getItem('cookie_consent')) {
+                cookieModal.classList.remove('hidden');
+                document.body.classList.add('modal-open');
+                setTimeout(() => {
+                    cookieModal.classList.remove('opacity-0');
+                    cookieModalContent.classList.remove('scale-95');
+                }, 100);
+            }
+
+            acceptCookiesBtn.addEventListener('click', () => {
+                localStorage.setItem('cookie_consent', 'true');
+                cookieModal.classList.add('opacity-0');
+                cookieModalContent.classList.add('scale-95');
+                 setTimeout(() => {
+                    cookieModal.classList.add('hidden');
+                    if (!privacyModal.classList.contains('hidden')) {
+                        // Do nothing if privacy modal is open
+                    } else {
+                         document.body.classList.remove('modal-open');
+                    }
+                }, 300);
             });
         });
     </script>
