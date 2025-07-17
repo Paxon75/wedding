@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTM | Ogrzewanie i Klimatyzacja dla Branży Ślubnej</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Playfair+Display:wght@600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Wedding Chic (Ivory, Taupe, Sage, Champagne Gold) -->
+    <!-- Application Structure Plan: The structure remains a conversion-focused funnel but is redesigned with a lighter, more elegant aesthetic suitable for the wedding industry. The goal is to evoke a sense of luxury, trust, and attention to detail through a softer color palette, refined typography, and more white space. -->
+    <!-- Visualization & Content Choices: Report Info: Landing page content -> Goal: Persuade/Convert -> Viz/Presentation: The design uses a warm, off-white background, elegant serif fonts (Cormorant Garamond), and a soft color scheme. Emoji icons are replaced with subtle Unicode symbols (❖). Interactions: Smooth scrolling and fade-in animations are retained for a premium feel. Justification: This aesthetic overhaul directly addresses the user's request to make the design more suitable for the wedding industry, moving from a corporate to a boutique, high-end feel. Library/Method: Vanilla JS, Tailwind CSS. NO SVG/Mermaid used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+            font-family: 'Cormorant Garamond', serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-ui {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .bg-base { background-color: #FDFBF8; }
+        .bg-accent { background-color: #EAE6E1; } /* Muted Taupe/Beige */
+        .text-heading { color: #6D5D4D; } /* Warm Taupe */
+        .text-body { color: #4A4A4A; }
+        .bg-cta { background-color: #8F9A8A; } /* Darker Sage Green */
+        .text-cta { color: #FFFFFF; }
+        .border-accent { border-color: #EAE6E1; }
+        .text-highlight { color: #B0926A; } /* Champagne Gold */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #EAE6E1; /* Fallback color */
+        }
+        .hero-section video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translateX(-50%) translateY(-50%);
+            background-size: cover;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(240, 237, 232, 0.3), rgba(240, 237, 232, 0.85));
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            color: #4A3F35;
+            text-shadow: 0px 1px 4px rgba(255, 255, 255, 0.2);
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(253, 251, 248, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .form-sending .spinner {
+            display: inline-block;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            width: 1.25rem;
+            height: 1.25rem;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        /* GDPR Checkbox Style */
+        .custom-checkbox:checked {
+            background-color: #8F9A8A;
+            border-color: #8F9A8A;
+        }
+        .custom-checkbox:checked::before {
+            content: '✓';
+            color: white;
+            font-size: 0.75rem;
+            text-align: center;
+            line-height: 1rem;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .privacy-content ul {
+            list-style-type: disc;
+            padding-left: 2rem;
+        }
+        .privacy-content li {
+            margin-bottom: 0.5rem;
+        }
+        .modal-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased text-body">
+
+    <header id="main-header" class="bg-base/80 backdrop-blur-lg shadow-sm fixed top-0 left-0 right-0 z-40 transition-transform duration-300 -translate-y-full">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <div class="text-2xl text-heading" style="font-family: 'Playfair Display', serif;">
+                    MTM
+                </div>
+                <p class="text-xs font-ui text-heading/70 tracking-wider">Tworzymy magiczny klimat</p>
+            </div>
+            <nav>
+                <a href="#contact" class="font-ui bg-cta text-cta font-semibold py-2 px-6 rounded-full transition-all duration-300 hover:bg-opacity-90 hover:shadow-md">
+                    Kontakt
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section flex items-end pb-20 md:pb-32">
+            <div class="hero-overlay"></div>
+            <video autoplay loop muted playsinline src="https://paxon75.github.io/wedding/wesele.mp4"></video>
+            <div class="container mx-auto px-6 text-center hero-content">
+                <h1 class="text-4xl md:text-6xl mb-6 leading-tight">Stwórzmy razem idealny klimat.</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
+                    Jako specjaliści rozumiemy, że diabeł tkwi w szczegółach. Zapewnij swoim parom luksus idealnej temperatury, a my zadbamy o resztę.
+                </p>
+                <a href="#benefits" class="font-ui bg-cta text-cta text-lg font-semibold py-4 px-12 rounded-full transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg hover:scale-105 inline-block">
+                    ODKRYJ NASZE ATUTY
+                </a>
+            </div>
+        </section>
+
+        <section id="social-proof" class="py-12 bg-accent">
+            <div class="container mx-auto px-6 text-center">
+                <h3 class="font-ui text-sm uppercase tracking-widest text-heading/60 mb-6">ZAUFAŁY NAM NAJWIĘKSZE MARKI W POLSCE:</h3>
+                <div class="flex flex-wrap justify-center items-center gap-x-8 md:gap-x-16 gap-y-4 text-heading/70">
+                    <span class="text-2xl font-bold" style="font-family: 'Montserrat', sans-serif;">TVN</span>
+                    <span class="text-2xl font-bold" style="font-family: 'Montserrat', sans-serif;">Polsat</span>
+                    <span class="text-2xl font-bold" style="font-family: 'Montserrat', sans-serif;">TVP</span>
+                    <span class="text-xl" style="font-family: 'Cormorant Garamond', serif;">Czołowi Projektanci Mody</span>
+                    <span class="text-xl" style="font-family: 'Cormorant Garamond', serif;">Agencje Eventowe</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits" class="py-20 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-20">
+                     <h2 class="text-4xl md:text-5xl text-heading mb-4">Partnerstwo, które daje pewność.</h2>
+                     <p class="text-lg max-w-2xl mx-auto">Nasza współpraca to gwarancja spokoju i perfekcji w najważniejszym dniu.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center mb-24 section-fade-in">
+                    <div class="order-2 md:order-1">
+                        <h3 class="text-3xl md:text-4xl text-heading mb-4">Doświadczenie i Zaufanie</h3>
+                        <span class="text-highlight text-3xl mb-4 block">❖</span>
+                        <p class="text-xl leading-relaxed">
+                            Od 1996 roku "tworzymy klimat" na niezliczonej ilości wydarzeń. Twoje zaufanie budujemy na solidnych fundamentach lat praktyki w najbardziej wymagających lokalizacjach.
+                        </p>
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <img src="https://placehold.co/600x450/EAE6E1/6D5D4D?text=Zaufanie+i+Do%C5%9Bwiadczenie" alt="Elegancki detal weselny" class="rounded-lg shadow-xl w-full h-auto">
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center mb-24 section-fade-in">
+                    <div>
+                        <img src="https://placehold.co/600x450/6D5D4D/EAE6E1?text=Technologia+i+Estetyka" alt="Nowoczesne urządzenie w estetycznym otoczeniu" class="rounded-lg shadow-xl w-full h-auto">
+                    </div>
+                    <div>
+                        <h3 class="text-3xl md:text-4xl text-heading mb-4">Technologia i Estetyka</h3>
+                        <span class="text-highlight text-3xl mb-4 block">❖</span>
+                        <p class="text-xl leading-relaxed">
+                            Dysponujemy nowoczesną i dyskretną flotą urządzeń. Gwarantujemy, że technologia nie zakłóci estetyki Twojej wizji, od namiotów plenerowych po szklane pawilony.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center section-fade-in">
+                     <div class="order-2 md:order-1">
+                        <h3 class="text-3xl md:text-4xl text-heading mb-4">Kompleksowa Obsługa</h3>
+                        <span class="text-highlight text-3xl mb-4 block">❖</span>
+                        <p class="text-xl leading-relaxed">
+                            Zapewniamy pełne wsparcie na każdym etapie – od doradztwa, przez montaż, po dyskretną obsługę. Jesteśmy Twoim cichym partnerem, który zdejmuje z Ciebie cały ciężar logistyki.
+                        </p>
+                    </div>
+                    <div class="order-1 md:order-2">
+                        <img src="https://placehold.co/600x450/A3B899/FDFBF8?text=Pe%C5%82ne+Wsparcie" alt="Osoba planująca event" class="rounded-lg shadow-xl w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="process" class="py-20 md:py-32 bg-accent">
+            <div class="container mx-auto px-6 text-center section-fade-in">
+                <h2 class="text-4xl md:text-5xl text-heading mb-16">Proces stworzony dla Twojej wygody</h2>
+                <div class="grid md:grid-cols-3 gap-12 text-center">
+                    <div class="border-t-2 border-accent pt-8">
+                        <div class="text-5xl text-highlight mb-4">I.</div>
+                        <h3 class="text-2xl font-bold text-heading mb-2 font-ui">Rozmowa i Wizja</h3>
+                        <p class="leading-relaxed">Zaczynamy od zrozumienia Twoich potrzeb i specyfiki miejsca, aby przygotować idealnie dopasowane rozwiązanie.</p>
+                    </div>
+                    <div class="border-t-2 border-accent pt-8">
+                        <div class="text-5xl text-highlight mb-4">II.</div>
+                        <h3 class="text-2xl font-bold text-heading mb-2 font-ui">Realizacja i Montaż</h3>
+                        <p class="leading-relaxed">Nasz zespół dyskretnie i profesjonalnie instaluje sprzęt, dbając o każdy detal i harmonię z otoczeniem.</p>
+                    </div>
+                    <div class="border-t-2 border-accent pt-8">
+                        <div class="text-5xl text-highlight mb-4">III.</div>
+                        <h3 class="text-2xl font-bold text-heading mb-2 font-ui">Perfekcja i Spokój</h3>
+                        <p class="leading-relaxed">Czuwamy nad wszystkim w trakcie uroczystości, gwarantując komfort i pozwalając Ci skupić się na tworzeniu magii.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center section-fade-in">
+                <h2 class="text-4xl md:text-5xl text-heading mb-16">Nasza dbałość o detal</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="gallery-item rounded-lg">
+                        <img src="https://placehold.co/600x800/EAE6E1/4A4A4A?text=Letnie+Popo%C5%82udnie" alt="Realizacja w namiocie weselnym" class="w-full h-full object-cover">
+                        <div class="gallery-overlay">
+                            <h4 class="text-2xl text-heading">Wesele w namiocie, 32°C</h4>
+                            <p class="text-lg text-body">Dyskretna klimatyzacja zapewniła komfort gościom.</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item rounded-lg">
+                         <img src="https://placehold.co/600x800/6D5D4D/FDFBF8?text=Ciep%C5%82o+Wspomnie%C5%84" alt="Realizacja w stodole" class="w-full h-full object-cover">
+                         <div class="gallery-overlay">
+                            <h4 class="text-2xl text-heading">Przyjęcie w stodole, -2°C</h4>
+                            <p class="text-lg text-body">Niezawodne ogrzewanie utrzymało ciepłą atmosferę.</p>
+                        </div>
+                    </div>
+                     <div class="gallery-item rounded-lg">
+                         <img src="https://placehold.co/600x800/A3B899/FFFFFF?text=Magia+Oran%C5%BCerii" alt="Realizacja w oranżerii" class="w-full h-full object-cover">
+                         <div class="gallery-overlay">
+                            <h4 class="text-2xl text-heading">Event w oranżerii</h4>
+                            <p class="text-lg text-body">Pełna kontrola temperatury w szklanym pawilonie.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="bg-accent py-20 md:py-32">
+            <div class="container mx-auto px-6 section-fade-in">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="text-center md:text-left">
+                        <h2 class="text-4xl md:text-5xl text-heading mb-6">Porozmawiajmy o Twoim następnym wydarzeniu.</h2>
+                        <p class="text-xl text-body leading-relaxed">
+                           Nawiązując z nami współpracę, zyskujesz partnera, który rozumie rangę i specyfikę branży weselnej. Skontaktuj się z nami, aby poznać dedykowaną ofertę dla wedding plannerów.
+                        </p>
+                    </div>
+                    <div class="bg-base p-8 md:p-12 rounded-lg shadow-xl">
+                        <form id="contact-form" novalidate>
+                            <div id="form-message" class="hidden mb-6 p-4 rounded-md text-center font-ui transition-all duration-300"></div>
+                            <div class="mb-5">
+                                <label for="name" class="block text-sm font-ui uppercase tracking-wider text-heading/70 mb-2">Imię</label>
+                                <input type="text" id="name" name="Imię" class="w-full px-4 py-3 bg-white border border-accent rounded-md focus:outline-none focus:ring-2 focus:ring-highlight/50 transition-shadow" required>
+                            </div>
+                            <div class="mb-5">
+                                <label for="email" class="block text-sm font-ui uppercase tracking-wider text-heading/70 mb-2">Email</label>
+                                <input type="email" id="email" name="Email" class="w-full px-4 py-3 bg-white border border-accent rounded-md focus:outline-none focus:ring-2 focus:ring-highlight/50 transition-shadow" required>
+                            </div>
+                            <div class="mb-6">
+                                <label for="phone" class="block text-sm font-ui uppercase tracking-wider text-heading/70 mb-2">Telefon</label>
+                                <input type="tel" id="phone" name="Telefon" class="w-full px-4 py-3 bg-white border border-accent rounded-md focus:outline-none focus:ring-2 focus:ring-highlight/50 transition-shadow" required>
+                            </div>
+                            <div class="mb-6">
+                                <div class="flex items-start">
+                                    <input id="gdpr" name="Zgoda RODO" type="checkbox" value="Wyrażono zgodę" class="custom-checkbox appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-cta checked:border-cta focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" required>
+                                    <label for="gdpr" class="text-sm text-body/80">
+                                        Wyrażam zgodę na przetwarzanie moich danych osobowych w celu odpowiedzi na zapytanie. Zapoznałem/am się z <a href="#privacy-policy" class="privacy-link underline hover:text-highlight">Polityką Prywatności</a>.
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" id="submit-button" class="w-full bg-cta text-cta font-ui font-bold text-lg py-4 px-6 rounded-full transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg hover:scale-105 flex justify-center items-center">
+                                <span class="button-text">WYŚLIJ ZAPYTANIE</span>
+                                <span class="spinner" style="display: none;"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-heading text-gray-300 py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-2xl text-highlight mb-3" style="font-family: 'Playfair Display', serif;">MTM</p>
+            <p class="text-sm font-ui text-gray-300">ul. Księcia Józefa Poniatowskiego 11, 05-230 Kobyłka | <a href="mailto:biuro@firmamtm.pl" class="hover:text-highlight transition-colors">biuro@firmamtm.pl</a></p>
+            <p class="text-sm font-ui text-gray-300">tel: <a href="tel:+48223531111" class="hover:text-highlight transition-colors">+48 22 353 11 11</a> | <a href="tel:+48223532222" class="hover:text-highlight transition-colors">+48 22 353 22 22</a></p>
+            <p class="text-xs font-ui mt-6 text-gray-400">&copy; 2025 MTM | <a href="#privacy-policy" class="privacy-link hover:text-highlight transition-colors">Polityka Prywatności</a></p>
+        </div>
+    </footer>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacy-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 hidden opacity-0">
+        <div class="modal-content bg-base rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative p-8 md:p-12 transform scale-95">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-4xl text-heading/50 hover:text-heading transition-colors">&times;</button>
+            <div class="privacy-content">
+                <h2 class="text-4xl md:text-5xl text-heading mb-12 text-center">Polityka Prywatności</h2>
+                <div class="space-y-6 text-lg leading-relaxed">
+                    <h3 class="text-2xl text-heading pt-6">§ 1. POSTANOWIENIA OGÓLNE</h3>
+                    <p>1. Administratorem danych osobowych zbieranych za pośrednictwem Sklepu internetowego www.firmamtm.pl jest MTM DARIUSZ SEFERYŃSKI adres siedziby: ul. Księcia Józefa Poniatowskiego 11, 05-230 Kobyłka, NIP: 9521787616, REGON: 013279667, wpisany do Centralnej Ewidencji i Informacji o Działalności Gospodarczej, adres poczty elektronicznej: biuro@firmamtm.pl, zwany dalej "Administratorem", będący jednocześnie Usługodawcą.</p>
+                    <p>2. Dane osobowe Usługobiorcy są przetwarzane zgodnie z ustawą o ochronie danych osobowych z dnia 29 sierpnia 1997 r. (Dz. U. Nr 133, poz. 883 ze zm.) oraz ustawą o świadczeniu usług drogą elektroniczną z dnia 18 lipca 2002 r. (Dz. U. Nr 144, poz. 1204 ze zm.).</p>
+                    <p>3. Administrator dokłada szczególnej staranności w celu ochrony interesów osób, których dane dotyczą, a w szczególności zapewnia, że zbierane przez niego dane są:</p>
+                    <ul>
+                        <li>a) przetwarzane zgodnie z prawem,</li>
+                        <li>b) zbierane dla oznaczonych, zgodnych z prawem celów i niepoddawane dalszemu przetwarzaniu niezgodnemu z tymi celami,</li>
+                        <li>c) merytorycznie poprawne i adekwatne w stosunku do celów, w jakich są przetwarzane oraz przechowywane w postaci umożliwiającej identyfikację osób, których dotyczą, nie dłużej niż jest to niezbędne do osiągnięcia celu przetwarzania.</li>
+                    </ul>
+
+                    <h3 class="text-2xl text-heading pt-6">§ 2. RODZAJ PRZETWARZANYCH DANYCH OSOBOWYCH, CEL I ZAKRES ZBIERANIA DANYCH</h3>
+                    <p>1. Dane osobowe Usługobiorców, zbierane są w przypadku:</p>
+                    <ul>
+                        <li>a) rejestracji konta w Sklepie, w celu utworzenia indywidualnego konta i zarządzania tym kontem. Podstawa prawna: niezbędność do wykonania umowy o świadczenie usługi Konta (art. 6 ust. 1 lit. b RODO).</li>
+                        <li>b) składania zamówienia w Sklepie, w celu wykonania umowy sprzedaży. Podstawa prawna: niezbędność do wykonania umowy sprzedaży (art. 6 ust. 1 lit. b RODO).</li>
+                        <li>c) subskrypcji biuletynu informacyjnego (Newsletter), w celu wykonania umowy, której przedmiotem jest usługa świadczona drogą elektroniczną. Podstawa prawna - zgoda osoby, której dane dotyczą, na wykonanie umowy o świadczenie usługi Newsletter (art. 6 ust. 1 lit. a RODO).</li>
+                        <li>d) korzystania z systemu zamieszczania opinii, w celu wykonania umowy, której przedmiotem jest usługa świadczona drogą elektroniczną. Podstawa prawna - niezbędność do wykonania umowy o świadczenie usługi (art. 6 ust. 1 lit. b RODO).</li>
+                        <li>e) korzystania z usługi Formularz kontaktowy w Sklepie w celu wykonania umowy świadczonej drogą elektroniczną. Podstawa prawna: niezbędność do wykonania umowy o świadczenie usługi Formularz kontaktowy (art. 6 ust. 1 lit. b RODO).</li>
+                        <li>f) korzystania z usługi Zamieść zapytanie w Sklepie w celu wykonania umowy świadczonej drogą elektroniczną. Podstawa prawna: niezbędność do wykonania umowy o świadczenie usługi Zamieść zapytanie (art. 6 ust. 1 lit. b RODO).</li>
+                    </ul>
+                    <p>2. W przypadku składania zamówienia w Sklepie internetowym, Usługobiorca podaje następujące dane: Imię i nazwisko, Adres, Adres e-mail, Numer telefonu, Nazwa firmy, NIP.</p>
+                    <p>3. Podczas rejestracji konta w Sklepie internetowym, Usługobiorca podaje wyłącznie Adres e-mail.</p>
+                    <p>4. W przypadku subskrypcji biuletynu informacyjnego (Newsletter), Użytkownik podaje jedynie swój adres e-mail.</p>
+                    <p>5. W przypadku korzystania z usługi Formularz kontaktowy, Użytkownik podaje następujące dane: Imię, Adres e-mail.</p>
+                    <p>6. W przypadku korzystania z systemu zamieszczania opinii, Użytkownik podaje następujące dane: Imię.</p>
+                    <p>7. W przypadku korzystania z usługi Zamieść zapytanie, Użytkownik podaje następujące dane: Imię i nazwisko, Adres e-mail, Numer telefonu.</p>
+                    <p>8. Podczas korzystania ze Strony internetowej Sklepu mogą być pobierane dodatkowe informacje, w szczególności: adres IP przypisany do komputera Usługobiorcy lub zewnętrzny adres IP dostawcy Internetu, nazwa domeny, rodzaj przeglądarki, czas dostępu, typ systemu operacyjnego.</p>
+                    <p>9. Od Usługobiorców mogą być także gromadzone dane nawigacyjne, w tym informacje o linkach i odnośnikach, w które zdecydują się kliknąć lub innych czynnościach, podejmowanych w naszym Sklepie. Podstawa prawna - prawnie uzasadniony interes (art. 6 ust. 1 lit. f RODO), polegający na ułatwieniu korzystania z usług świadczonych drogą elektroniczną oraz na poprawie funkcjonalności tych usług.</p>
+                    <p>10. Podanie danych osobowych przez Usługobiorcę jest dobrowolne.</p>
+
+                    <h3 class="text-2xl text-heading pt-6">§ 3. UDOSTĘPNIENIE DANYCH OSOBOWYCH</h3>
+                    <p>1. Dane osobowe Usługobiorców przekazywane są dostawcom usług, z których korzysta Administrator przy prowadzeniu Sklepu. Dostawcy usług, którym przekazywane są dane osobowe, w zależności od uzgodnień umownych i okoliczności, albo podlegają poleceniom Administratora co do celów i sposobów przetwarzania tych danych (podmioty przetwarzające), albo samodzielnie określają cele i sposoby ich przetwarzania (administratorzy).</p>
+                    <p>2. W przypadku dokonania zakupu w Sklepie, dane osobowe mogą być przekazywane firmie kurierskiej, w celu dostarczenia zamówionych towarów.</p>
+                    <p>3. Dane osobowe Usługobiorców są przechowywane wyłącznie na terenie Europejskiego Obszaru Gospodarczego (EOG).</p>
+
+                    <h3 class="text-2xl text-heading pt-6">§ 4. PRAWO KONTROLI, DOSTĘPU DO TREŚCI WŁASNYCH DANYCH ORAZ ICH POPRAWIANIA</h3>
+                    <p>1. Osoba, której dane dotyczą, ma prawo dostępu do treści swoich danych osobowych oraz prawo ich sprostowania, usunięcia, ograniczenia przetwarzania, prawo do przenoszenia danych, prawo wniesienia sprzeciwu, prawo do cofnięcia zgody w dowolnym momencie bez wpływu na zgodność z prawem przetwarzania, którego dokonano na podstawie zgody przed jej cofnięciem.</p>
+                    <p>2. W celu realizacji uprawnień, o których mowa w pkt 1 można wysłać stosowną wiadomość e-mail na adres: biuro@firmamtm.pl.</p>
+                    <p>3. W przypadku wystąpienia przez Usługobiorcę z uprawnieniem wynikającym z powyższych praw, Administrator spełnia żądanie albo odmawia jego spełnienia niezwłocznie, nie później jednak niż w ciągu miesiąca po jego otrzymaniu.</p>
+                    <p>4. Usługobiorca ma prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych w zakresie naruszenia jego prawa do ochrony danych osobowych lub innych praw przyznanych na mocy RODO.</p>
+
+                    <h3 class="text-2xl text-heading pt-6">§ 5. PLIKI "COOKIES"</h3>
+                    <p>1. Sklep Usługodawcy używa plików „cookies”.</p>
+                    <p>2. Instalacja plików „cookies” jest konieczna do prawidłowego świadczenia usług w Sklepie. W plikach „cookies" znajdują się informacje niezbędne do prawidłowego funkcjonowania Sklepu, w szczególności tych wymagających autoryzacji.</p>
+                    <p>3. W ramach Sklepu stosowane są trzy rodzaje plików „cookies”: „sesyjne”, „stałe” oraz „analityczne”.</p>
+                    <p>4. Użytkownik ma prawo zadecydowania w zakresie dostępu plików „cookies” do swojego komputera poprzez ich uprzedni wybór w oknie swojej przeglądarki.</p>
+
+                    <h3 class="text-2xl text-heading pt-6">§ 6. POSTANOWIENIA KOŃCOWE</h3>
+                    <p>1. Administrator stosuje środki techniczne i organizacyjne zapewniające ochronę przetwarzanych danych osobowych odpowiednią do zagrożeń oraz kategorii danych objętych ochroną, a w szczególności zabezpiecza dane przed ich udostępnieniem osobom nieupoważnionym, zabraniem przez osobę nieuprawnioną, przetwarzaniem z naruszeniem obowiązujących przepisów oraz zmianą, utratą, uszkodzeniem lub zniszczeniem.</p>
+                    <p>2. Usługodawca udostępnia odpowiednie środki techniczne zapobiegające pozyskiwaniu i modyfikowaniu przez osoby nieuprawnione, danych osobowych przesyłanych drogą elektroniczną.</p>
+                    <p>3. W sprawach nieuregulowanych niniejszą Polityką prywatności stosuje się odpowiednio przepisy RODO oraz inne właściwe przepisy prawa polskiego.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.getElementById('main-header');
+            const heroSection = document.getElementById('hero');
+            const headerObserver = new IntersectionObserver((entries) => {
+                if (!entries[0].isIntersecting) {
+                    header.classList.remove('-translate-y-full');
+                } else {
+                    header.classList.add('-translate-y-full');
+                }
+            }, { threshold: 0.1 });
+            
+            if (heroSection) {
+                 headerObserver.observe(heroSection);
+            }
+            
+            const fadeElems = document.querySelectorAll('.section-fade-in');
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        fadeObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            fadeElems.forEach(elem => fadeObserver.observe(elem));
+
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+            const submitButton = document.getElementById('submit-button');
+            const buttonText = submitButton.querySelector('.button-text');
+            const spinner = submitButton.querySelector('.spinner');
+            const gdprCheckbox = document.getElementById('gdpr');
+            
+            const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzLhzKRbJYSHLg-NVDkga05TXL-uWV-lRiGjwQjJO4ZgpZmIOAdN9ftLqr6jEagfsgIQ/exec';
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                if (!gdprCheckbox.checked) {
+                    formMessage.textContent = 'Proszę wyrazić zgodę na przetwarzanie danych.';
+                    formMessage.style.backgroundColor = '#D9A3A3'; // Muted Red
+                    formMessage.style.color = '#FFFFFF';
+                    formMessage.classList.remove('hidden');
+                    return;
+                }
+
+                buttonText.style.display = 'none';
+                spinner.style.display = 'inline-block';
+                submitButton.disabled = true;
+                formMessage.classList.add('hidden');
+
+                fetch(SCRIPT_URL, { method: 'POST', body: new FormData(contactForm)})
+                    .then(response => {
+                        if (response.ok) {
+                            formMessage.classList.add('hidden'); // Hide any previous messages
+                            buttonText.textContent = 'Wysłano!';
+                            submitButton.classList.remove('bg-cta');
+                            submitButton.classList.add('bg-green-500');
+                            contactForm.reset();
+                        } else {
+                            throw new Error('Network response was not ok.');
+                        }
+                    })
+                    .catch(error => {
+                        formMessage.textContent = 'Wystąpił błąd. Spróbuj ponownie później.';
+                        formMessage.style.backgroundColor = '#D9A3A3';
+                        formMessage.style.color = '#FFFFFF';
+                        console.error('Error!', error.message);
+                        formMessage.classList.remove('hidden');
+                    })
+                    .finally(() => {
+                        spinner.style.display = 'none';
+                        buttonText.style.display = 'inline-block';
+                        
+                        setTimeout(() => {
+                            buttonText.textContent = 'WYŚLIJ ZAPYTANIE';
+                            submitButton.classList.add('bg-cta');
+                            submitButton.classList.remove('bg-green-500');
+                            submitButton.disabled = false;
+                        }, 3000);
+                    });
+            });
+
+            // Modal logic
+            const privacyModal = document.getElementById('privacy-modal');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            const privacyLinks = document.querySelectorAll('.privacy-link');
+            const modalContent = privacyModal.querySelector('.modal-content');
+
+            const openModal = () => {
+                privacyModal.classList.remove('hidden');
+                setTimeout(() => {
+                    privacyModal.classList.remove('opacity-0');
+                    modalContent.classList.remove('scale-95');
+                    document.body.style.overflow = 'hidden';
+                }, 10);
+            };
+
+            const closeModal = () => {
+                privacyModal.classList.add('opacity-0');
+                modalContent.classList.add('scale-95');
+                setTimeout(() => {
+                    privacyModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+            };
+
+            privacyLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    openModal();
+                });
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+
+            privacyModal.addEventListener('click', (e) => {
+                if (e.target === privacyModal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
