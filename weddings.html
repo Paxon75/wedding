@@ -41,7 +41,7 @@
         .text-highlight { color: #B0926A; } /* Champagne Gold */
         .hero-section {
             position: relative;
-            min-height: 100vh;
+            height: 100vh;
             overflow: hidden;
             background-color: #EAE6E1; /* Fallback color */
         }
@@ -93,6 +93,25 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        .scroll-down-arrow {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
         /* GDPR Checkbox Style */
         .custom-checkbox:checked {
             background-color: #8F9A8A;
@@ -139,10 +158,10 @@
     </header>
 
     <main>
-        <section id="hero" class="hero-section flex items-center md:items-end pb-20 md:pb-32">
+        <section id="hero" class="hero-section flex flex-col justify-center text-center">
             <div class="hero-overlay"></div>
             <video autoplay loop muted playsinline src="https://paxon75.github.io/wedding/wesele.mp4"></video>
-            <div class="container mx-auto px-6 text-center hero-content">
+            <div class="container mx-auto px-6 hero-content">
                 <h1 class="text-4xl md:text-6xl mb-6 leading-tight">Stwórzmy razem idealny klimat.</h1>
                 <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
                     Jako specjaliści rozumiemy, że diabeł tkwi w szczegółach. Zapewnij swoim parom luksus idealnej temperatury, a my zadbamy o resztę.
@@ -151,6 +170,9 @@
                     ODKRYJ NASZE ATUTY
                 </a>
             </div>
+            <a href="#social-proof" class="scroll-down-arrow">
+                <i class="fas fa-chevron-down text-4xl text-heading"></i>
+            </a>
         </section>
 
         <section id="social-proof" class="py-12 bg-accent">
@@ -543,16 +565,3 @@
     </script>
 </body>
 </html>
-```
- in the most up-to-date Canvas "Finalny Landing Page MTM (z nowym banerem cookies)" document above and am asking a query about/based on this code below.
-Instructions to follow:
-  * Don't output/edit the document if the query is Direct/Simple. For example, if the query asks for a simple explanation, output a direct answer.
-  * Make sure to **edit** the document if the query shows the intent of editing the document, in which case output the entire edited document, **not just that section or the edits**.
-    * Don't output the same document/empty document and say that you have edited it.
-    * Don't change unrelated code in the document.
-  * Don't output  and  in your final response.
-  * Any references like "this" or "selected code" refers to the code between  and  tags.
-  * Just acknowledge my request in the introduction.
-  * Make sure to refer to the document as "Canvas" in your response.
-
-w sekcji hero brakuje mi jednego elementu, chciałbym aby pod przyciskiem ODKRYJ NASZE ATUTY pojawiła się ikona strzałki w dół z animacją która będzie zachęcała do przewijania str
