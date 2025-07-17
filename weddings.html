@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Playfair+Display:wght@600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:wght@600&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Chosen Palette: Wedding Chic (Ivory, Taupe, Sage, Champagne Gold) -->
     <!-- Application Structure Plan: The structure remains a conversion-focused funnel but is redesigned with a lighter, more elegant aesthetic suitable for the wedding industry. The goal is to evoke a sense of luxury, trust, and attention to detail through a softer color palette, refined typography, and more white space. -->
@@ -34,6 +34,7 @@
         .bg-base { background-color: #FDFBF8; }
         .bg-accent { background-color: #EAE6E1; } /* Muted Taupe/Beige */
         .text-heading { color: #6D5D4D; } /* Warm Taupe */
+        .bg-heading { background-color: #6D5D4D; } /* Warm Taupe */
         .text-body { color: #4A4A4A; }
         .bg-cta { background-color: #8F9A8A; } /* Darker Sage Green */
         .text-cta { color: #FFFFFF; }
@@ -70,7 +71,19 @@
             position: relative;
             z-index: 10;
             color: #4A3F35;
-            text-shadow: 0px 1px 4px rgba(255, 255, 255, 0.2);
+            text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .hero-content p {
+            font-size: 1.25rem; /* Increased size */
+            font-weight: 600; /* Bolder */
+            line-height: 1.75rem;
+            text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        @media (min-width: 768px) {
+            .hero-content p {
+                font-size: 1.5rem; /* Larger on desktop */
+                line-height: 2rem;
+            }
         }
         .section-fade-in {
             opacity: 0;
@@ -163,7 +176,7 @@
             <video autoplay loop muted playsinline src="https://paxon75.github.io/wedding/wesele.mp4"></video>
             <div class="container mx-auto px-6 text-center hero-content">
                 <h1 class="text-4xl md:text-6xl mb-6 leading-tight">Stwórzmy razem idealny klimat.</h1>
-                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
+                <p class="max-w-3xl mx-auto mb-10">
                     Jako specjaliści rozumiemy, że diabeł tkwi w szczegółach. Zapewnij swoim parom luksus idealnej temperatury, a my zadbamy o resztę.
                 </p>
                 <a href="#benefits" class="font-ui bg-cta text-cta text-lg font-semibold py-4 px-12 rounded-full transition-all duration-300 hover:bg-opacity-90 hover:shadow-lg hover:scale-105 inline-block">
@@ -324,13 +337,13 @@
         </section>
     </main>
 
-    <footer class="bg-heading text-gray-300 py-10">
+    <footer class="bg-heading text-gray-200 py-10">
         <div class="container mx-auto px-6 text-center">
             <a href="#"><img src="https://paxon75.github.io/wedding/logo_mtm.svg" alt="Logo MTM" class="h-14 mx-auto mb-4"></a>
-            <p class="text-sm font-ui text-gray-300">ul. Księcia Józefa Poniatowskiego 11, 05-230 Kobyłka | <a href="mailto:biuro@firmamtm.pl" class="hover:text-highlight transition-colors">biuro@firmamtm.pl</a></p>
-            <p class="text-sm font-ui text-gray-300">tel: <a href="tel:+48223531111" class="hover:text-highlight transition-colors">+48 22 353 11 11</a> | <a href="tel:+48223532222" class="hover:text-highlight transition-colors">+48 22 353 22 22</a></p>
+            <p class="text-sm font-ui">ul. Księcia Józefa Poniatowskiego 11, 05-230 Kobyłka | <a href="mailto:biuro@firmamtm.pl" class="hover:text-white transition-colors">biuro@firmamtm.pl</a></p>
+            <p class="text-sm font-ui">tel: <a href="tel:+48223531111" class="hover:text-white transition-colors">+48 22 353 11 11</a> | <a href="tel:+48223532222" class="hover:text-white transition-colors">+48 22 353 22 22</a></p>
             <p class="text-lg font-ui mt-4"><a href="https://firmamtm.pl" target="_blank" rel="noopener noreferrer" class="text-highlight hover:underline transition-colors">www.firmamtm.pl</a></p>
-            <p class="text-xs font-ui mt-6 text-gray-400">&copy; 2025 MTM | <a href="#privacy-policy" class="privacy-link hover:text-highlight transition-colors">Polityka Prywatności</a></p>
+            <p class="text-xs font-ui mt-6 text-gray-400">&copy; 2025 MTM | <a href="#privacy-policy" class="privacy-link hover:text-white transition-colors">Polityka Prywatności</a></p>
         </div>
     </footer>
 
